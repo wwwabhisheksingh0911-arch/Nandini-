@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Nandini ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#ff4d79,#ff99c8);
+    overflow:hidden;
+    color:white;
+    text-align:center;
+    min-height:100vh;
+}
+
+#welcome{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:linear-gradient(135deg,#ff4081,#ff80ab);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:1000;
+}
+
+#welcome h1{
+    font-size:40px;
+    margin-bottom:30px;
+}
+
+#welcome button{
+    padding:15px 35px;
+    border:none;
+    border-radius:30px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.container{
+    padding:20px;
+    display:none;
+}
+
+h1{
+    margin-top:20px;
+    font-size:42px;
+}
+
+#countdown{
+    margin:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+#letter{
+    max-width:700px;
+    margin:20px auto;
+    font-size:20px;
+    line-height:1.7;
+    min-height:120px;
+}
+
+.cake{
+    font-size:120px;
+    transition:1s;
+    margin:20px;
+}
+
+.cut{
+    transform:rotate(-15deg);
+}
+
+button{
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+#wish{
+    display:none;
+    margin-top:30px;
+    font-size:30px;
+    animation:pulse 1s infinite alternate;
+}
+
+@keyframes pulse{
+    from{transform:scale(1);}
+    to{transform:scale(1.1);}
+}
+
+.heart{
+    position:absolute;
+    color:white;
+    animation:float linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+    }
+    to{
+        transform:translateY(-100px);
+    }
+}
+
+.confetti{
+    position:absolute;
+    width:10px;
+    height:10px;
+    top:-20px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(100vh) rotate(720deg);
+    }
+}
+
+.firework{
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    animation:explode 1.5s linear forwards;
+}
+
+@keyframes explode{
+    from{
+        opacity:1;
+        transform:scale(0);
+    }
+    to{
+        opacity:0;
+        transform:scale(15);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="welcome">
+    <h1>❤️ A Special Surprise For Nandini ❤️</h1>
+    <button onclick="start()">Open Surprise ✨</button>
+</div>
+
+<div class="container" id="main">
+
+    <h1>🎂 Happy Birthday Nandini ❤️</h1>
+
+    <div id="countdown"></div>
+
+    <div id="letter"></div>
+
+    <div class="cake" id="cake">🎂</div>
+
+    <button onclick="cutCake()">Cut The Cake 🎂</button>
+
+    <div id="wish">
+        🎉 Happy Birthday Nandini 🎉
+        <br><br>
+        May your smile always shine and may every dream come true. ❤️
+    </div>
+
+</div>
+
+<script>
+
+function start(){
+    document.getElementById("welcome").style.display="none";
+    document.getElementById("main").style.display="block";
+    typeWriter();
+}
+
+const text =
+"Dear Nandini, today is not just another day. It is the celebration of a beautiful soul who brings happiness wherever she goes. May your life always be filled with joy, success, laughter and endless beautiful moments.";
+
+let i = 0;
+
+function typeWriter(){
+    if(i < text.length){
+        document.getElementById("letter").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter,40);
+    }
+}
+
+function updateCountdown(){
+
+    const birthday = new Date("June 23, 2026 00:00:00").getTime();
+    const now = new Date().getTime();
+
+    const distance = birthday - now;
+
+    if(distance <= 0){
+        document.getElementById("countdown").innerHTML =
+        "🎉 Today is Nandini's Birthday 🎉";
+        return;
+    }
+
+    const days = Math.floor(distance/(1000*60*60*24));
+    const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+    const seconds = Math.floor((distance%(1000*60))/1000);
+
+    document.getElementById("countdown").innerHTML =
+    "⏳ " + days + " Days " +
+    hours + " Hours " +
+    minutes + " Minutes " +
+    seconds + " Seconds";
+}
+
+setInterval(updateCountdown,1000);
+
+for(let j=0;j<35;j++){
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"%";
+    heart.style.fontSize=(20+Math.random()*20)+"px";
+    heart.style.animationDuration=(6+Math.random()*6)+"s";
+    heart.style.animationDelay=Math.random()*5+"s";
+    document.body.appendChild(heart);
+}
+
+function cutCake(){
+
+    document.getElementById("cake").classList.add("cut");
+    document.getElementById("wish").style.display="block";
+
+    for(let i=0;i<120;i++){
+
+        let c=document.createElement("div");
+        c.className="confetti";
+        c.style.left=Math.random()*100+"%";
+        c.style.background=
+        "hsl(" + Math.random()*360 + ",100%,50%)";
+        c.style.animationDuration=
+        (2+Math.random()*3)+"s";
+
+        document.body.appendChild(c);
+
+        setTimeout(()=>{
+            c.remove();
+        },5000);
+    }
+
+    fireworks();
+}
+
+function fireworks(){
+
+    for(let i=0;i<40;i++){
+
+        let f=document.createElement("div");
+        f.className="firework";
+
+        f.style.left=Math.random()*100+"%";
+        f.style.top=Math.random()*80+"%";
+
+        f.style.background=
+        "hsl(" + Math.random()*360 + ",100%,50%)";
+
+        document.body.appendChild(f);
+
+        setTimeout(()=>{
+            f.remove();
+        },1500);
+    }
+}
+
+</script>
+
+</body>
+</html>
